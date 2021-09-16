@@ -1,0 +1,107 @@
+{
+  "name": "Stock-Info",
+  "displayName": "stock-info",
+  "description": "",
+  "version": "0.0.1",
+  "publisher": "easyup",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:stock-info.set_code",
+    "onCommand:stock-info.start_listening",
+	"onCommand:stock-info.set_notify_price"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "stock-info.set_code",
+        "title": "Set Code"
+      },
+      {
+        "command": "stock-info.start_listening",
+        "title": "Start Stock Listening",
+		"icon":{
+			"light": "images/beautifulGirl.svg",
+			"dark": "images/beautifulGirl.svg"
+		}
+      },
+	  {
+        "command": "stock-info.set_notify_price",
+        "title": "Set Notify Price"
+      }
+    ],
+	"viewsContainers": {
+		"activitybar": [
+			{
+				"id": "beautifulGirl",
+				"title": "Stock",
+				"icon": "images/beautifulGirl.svg"
+			}
+		]
+	},
+	"views": {
+		"beautifulGirl": [
+			{
+				"id": "beautifulGirl1",
+				"name": "in"
+			},
+			{
+				"id": "beautifulGirl2",
+				"name": "out"
+			},
+			{
+				"id": "beautifulGirl3",
+				"name": "info"
+			}
+		]
+	},
+	"menus": {
+		"view/title": [
+			{
+				"command": "stock-info.set_code",
+				"when": "view == beautifulGirl1",
+				"group": "navigation"
+			},
+			{
+				"command": "stock-info.set_notify_price",
+				"when": "view == beautifulGirl1",
+				"group": "navigation"
+			},
+			{
+				"command": "stock-info.start_listening",
+				"when": "view == beautifulGirl1",
+				"group": "navigation"
+			}
+		],
+		"editor/title": [
+			{
+				"command": "stock-info.start_listening",
+				"when": "editorFocus",
+				"group": "navigation"
+			}
+		]
+	}
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.60.0",
+    "axios": "^0.21.4",
+    "eslint": "^7.27.0",
+    "glob": "^7.1.7",
+    "mocha": "^8.4.0",
+    "typescript": "^4.3.2",
+    "vscode-test": "^1.5.2"
+  }
+}

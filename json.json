@@ -1,0 +1,38 @@
+
+{
+  "data": [
+    {
+      "symbol": "SH512000",
+      "current": 1.136,
+      "percent": -2.24,
+      "chg": -0.026,
+      "timestamp": 1631775600000,
+      "volume": 1043385409,
+      "amount": 1.196939094222E9,
+      "market_capital": 2.12574201072E10,
+      "float_market_capital": null,
+      "turnover_rate": null,
+      "amplitude": 2.93,
+      "open": 1.162,
+      "last_close": 1.162,
+      "high": 1.167,
+      "low": 1.133,
+      "avg_price": 1.1471687105239172,
+      "trade_volume": null,
+      "side": null,
+      "is_trade": false,
+      "level": 2,
+      "trade_session": null,
+      "trade_type": null,
+      "current_year_percent": -2.66,
+      "trade_unique_id": null,
+      "type": 13,
+      "bid_appl_seq_num": null,
+      "offer_appl_seq_num": null,
+      "volume_ext": null,
+      "traded_amount_ext": null
+    }
+  ],
+  "error_code": 0,
+  "error_description": null
+}
