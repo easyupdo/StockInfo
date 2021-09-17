@@ -1,9 +1,9 @@
-# stock-info
+# StockInfo
 
-1. set code
+## add stock code
 
-2. set nodify pirce
+1. stock-info.set_code
 
-3. start_listening
+
 
 **Enjoy!**

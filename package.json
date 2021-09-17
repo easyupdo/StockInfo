@@ -11,97 +11,120 @@
     "Other"
   ],
   "activationEvents": [
+    "onCommand:stock-info.helloWorld",
     "onCommand:stock-info.set_code",
     "onCommand:stock-info.start_listening",
-	"onCommand:stock-info.set_notify_price"
+    "onCommand:stock-info.set_notify_price",
+    "onCommand:stock-info.test",
+	"onCommand:stock-info.refresh"
   ],
-  "main": "./extension.js",
+  "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "stock-info.set_code",
-        "title": "Set Code"
+        "title": "Add"
       },
       {
         "command": "stock-info.start_listening",
         "title": "Start Stock Listening",
-		"icon":{
-			"light": "images/beautifulGirl.svg",
-			"dark": "images/beautifulGirl.svg"
-		}
+        "icon": {
+          "light": "images/beautifulGirl.svg",
+          "dark": "images/beautifulGirl.svg"
+        }
       },
-	  {
+      {
         "command": "stock-info.set_notify_price",
         "title": "Set Notify Price"
+      },
+      {
+        "command": "stock-info.test",
+        "title": "Jay Test"
+      },
+	  {
+        "command": "stock-info.refresh",
+        "title": "Jay refresh"
       }
     ],
-	"viewsContainers": {
-		"activitybar": [
-			{
-				"id": "beautifulGirl",
-				"title": "Stock",
-				"icon": "images/beautifulGirl.svg"
-			}
-		]
-	},
-	"views": {
-		"beautifulGirl": [
-			{
-				"id": "beautifulGirl1",
-				"name": "in"
-			},
-			{
-				"id": "beautifulGirl2",
-				"name": "out"
-			},
-			{
-				"id": "beautifulGirl3",
-				"name": "info"
-			}
-		]
-	},
-	"menus": {
-		"view/title": [
-			{
-				"command": "stock-info.set_code",
-				"when": "view == beautifulGirl1",
-				"group": "navigation"
-			},
-			{
-				"command": "stock-info.set_notify_price",
-				"when": "view == beautifulGirl1",
-				"group": "navigation"
-			},
-			{
-				"command": "stock-info.start_listening",
-				"when": "view == beautifulGirl1",
-				"group": "navigation"
-			}
-		],
-		"editor/title": [
-			{
-				"command": "stock-info.start_listening",
-				"when": "editorFocus",
-				"group": "navigation"
-			}
-		]
-	}
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "beautifulGirl",
+          "title": "Stock",
+          "icon": "images/beautifulGirl.svg"
+        }
+      ]
+    },
+    "views": {
+      "beautifulGirl": [
+        {
+          "id": "beautifulGirl1",
+          "name": "in"
+        },
+        {
+          "id": "beautifulGirl2",
+          "name": "out"
+        },
+        {
+          "id": "beautifulGirl3",
+          "name": "info"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "stock-info.set_code",
+          "when": "view == beautifulGirl1",
+          "group": "navigation"
+        },
+        {
+          "command": "stock-info.set_notify_price",
+          "when": "view == beautifulGirl1",
+          "group": "navigation"
+        },
+        {
+          "command": "stock-info.start_listening",
+          "when": "view == beautifulGirl1",
+          "group": "navigation"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "stock-info.start_listening",
+          "when": "editorFocus",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "node ./test/runTest.js"
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "test-compile": "tsc -p ./",
+    "test-watch": "tsc -watch -p ./",
+    "pretest": "npm run test-compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@types/glob": "^7.1.3",
     "@types/mocha": "^8.2.2",
-    "@types/node": "14.x",
+    "@types/node": "^14.17.17",
     "@types/vscode": "^1.60.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
     "axios": "^0.21.4",
     "eslint": "^7.27.0",
     "glob": "^7.1.7",
     "mocha": "^8.4.0",
-    "typescript": "^4.3.2",
-    "vscode-test": "^1.5.2"
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.4.3",
+    "vscode-test": "^1.5.2",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^4.2.1"
   }
 }
