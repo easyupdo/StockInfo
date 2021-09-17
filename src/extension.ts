@@ -174,6 +174,20 @@ export function activate(context: vscode.ExtensionContext) {
 		// Display a message box to the user
 		vscode.window.showInformationMessage('start_listening ... !');
 		console.log("console.log");
+		//start
+		// auto stop
+		let hours = new Date().getHours();
+		let duration=0;
+		if(hours >= 9 && hours <= 12) {
+			duration = 12 - hours;
+		}else if(hours >=13 && hours <= 15) {
+			duration = 15 - hours;
+		}else{
+			duration = 0;
+		}
+		start_ = true;
+		//test
+		// duration = 1;
 
 		interval_ = setInterval((arg)=>{
 			// console.log("arg:"+arg)
@@ -196,23 +210,20 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.setStatusBarMessage("Name:"+name);
 			vscode.window.setStatusBarMessage("Name:"+name + " Curr_Price:"+current_price);	
 
-			// auto stop
-			let hours = new Date().getHours();
-			let duration;
-			if(hours >= 9 && hours <= 12) {
-				duration = 12 - hours;
-			}else if(hours >=13 && hours <= 15) {
-				duration = 15 - hours;
-			}else{
-				duration = 0;
-			}
-			if(!start_ && duration > 0) {
-				setTimeout(()=> {
-					clearInterval(interval_);
-					vscode.window.showInformationMessage("stop get stock info");
 
-				},1000 * 3600 * duration);// <= 2 hours
+			if(start_) {
 
+				if(duration > 0){
+					//auto stop
+					setTimeout(()=> {
+						clearInterval(interval_);
+						vscode.window.showInformationMessage("stop get stock info");
+	
+					},1000 * 3600 * duration);// <= 2 hours
+				}else{
+					vscode.window.setStatusBarMessage("Name:"+name + " Close_Price:"+current_price);
+					clearInterval(interval_);	
+				}
 			}
 	
 			if(current_price == notify_price) {
