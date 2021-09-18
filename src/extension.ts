@@ -11,6 +11,25 @@ var interval_:NodeJS.Timer;
 
 var start_:Boolean = false;
 
+function addZero (v:number) {
+	return v < 10 ? '0' + v : v
+}
+//Date
+function FormatTime (dateTime:Date) {
+	// const dateTime = new Date(time)
+	const year = dateTime.getFullYear()
+	const month = dateTime.getMonth() + 1
+	const date = dateTime.getDate()
+	const hour = dateTime.getHours()
+	const minute = dateTime.getMinutes()
+	const second = dateTime.getSeconds()
+	return `${year}-${addZero(month)}-${addZero(date)} ${addZero(hour)}:${addZero(minute)}:${addZero(second)}`
+}
+
+
+
+
+
 class Jay{
 	_name:string
 	constructor(name:string){
@@ -123,8 +142,11 @@ export function activate(context: vscode.ExtensionContext) {
 		console.log(date.getDay());
 		console.log(date.getHours());
 		console.log(date.getMonth());
-
 		console.log(new Date().getHours())
+
+
+
+		let tt = FormatTime(new Date());
 
 	}));
 
@@ -174,23 +196,34 @@ export function activate(context: vscode.ExtensionContext) {
 		// Display a message box to the user
 		vscode.window.showInformationMessage('start_listening ... !');
 		console.log("console.log");
+		// Set Date
 		//start
-		// auto stop
-		let hours = new Date().getHours();
 		let duration=0;
-		if(hours >= 9 && hours <= 12) {
-			duration = 12 - hours;
-		}else if(hours >=13 && hours <= 15) {
-			duration = 15 - hours;
-		}else{
+		let day = new Date().getDay();
+		if(day + 1 > 5){
 			duration = 0;
+		}else{
+			// auto stop
+			let hours = new Date().getHours();
+			
+			if(hours >= 9 && hours <= 12) {
+				duration = 12 - hours;
+			}else if(hours >=13 && hours <= 15) {
+				duration = 15 - hours;
+			}else{
+				duration = 0;
+			}
 		}
+
+
 		start_ = true;
 		//test
 		// duration = 1;
 
+		var num : number = 0;
 		interval_ = setInterval((arg)=>{
-			// console.log("arg:"+arg)
+			num +=1;
+			console.log("num:"+num)
 			if (typeof(arg) == "undefined") {
 				vscode.window.showErrorMessage("The stock code is not set ! please set stock code first");
 				clearInterval(interval_);
@@ -206,9 +239,14 @@ export function activate(context: vscode.ExtensionContext) {
 			let current_price = data_info[3]; 
 			console.log("Name:"+name);
 			console.log("Curr_Price:"+current_price);
+
+			let now_time = new Date().getTime();
+
+
+			let d = new Date();
 	
 			vscode.window.setStatusBarMessage("Name:"+name);
-			vscode.window.setStatusBarMessage("Name:"+name + " Curr_Price:"+current_price);	
+			vscode.window.setStatusBarMessage("Name:"+name + " Curr_Price:"+current_price+":["+ FormatTime(new Date())+ "]");	
 
 
 			if(start_) {
